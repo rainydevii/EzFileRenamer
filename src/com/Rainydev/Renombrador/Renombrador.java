@@ -24,6 +24,7 @@ public class Renombrador extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("Renombrador.fxml"));
         primaryStage.setTitle("Ez File Renamer");
         primaryStage.setScene(new Scene(root, 600, 521));
+        primaryStage.setResizable(false);
         primaryStage.show();
 
     }
@@ -58,20 +59,16 @@ public class Renombrador extends Application {
     @FXML
     private CheckBox Extension;
 
+    @FXML
+    private Label ContadorArchivos;
+
     public File selectedDirectory;
+
+    public int ContadorRenombre = 0;
 
     public Vector<Archivo> listaArchivos;
 
-    public void AbreSelector(){
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setInitialDirectory(new File("C:\\"));
-        directoryChooser.setTitle("Selecciona la carpeta");
-        selectedDirectory = directoryChooser.showDialog((Stage) Principal.getScene().getWindow());
-        System.out.println("Direccion seleccionada: " + selectedDirectory.getAbsolutePath());
-        Locacion.setText(selectedDirectory.getAbsolutePath());
-
-        //Mostramos los archivos
-
+    public void ActualizaTabla(){
         try {
             File[] files = RegresaArchivos(selectedDirectory);
 
@@ -99,6 +96,20 @@ public class Renombrador extends Application {
             Renombrar.setDisable(true);
             Extension.setDisable(true);
         }
+
+        ContadorArchivos.setText("" + TablaArchivos.getItems().size());
+    }
+
+    public void AbreSelector(){
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setInitialDirectory(new File("C:\\"));
+        directoryChooser.setTitle("Selecciona la carpeta");
+        selectedDirectory = directoryChooser.showDialog((Stage) Principal.getScene().getWindow());
+        System.out.println("Direccion seleccionada: " + selectedDirectory.getAbsolutePath());
+        Locacion.setText(selectedDirectory.getAbsolutePath());
+
+        //Mostramos los archivos
+        ActualizaTabla();
 
     }
 
@@ -255,6 +266,7 @@ public class Renombrador extends Application {
     private void GuardarCambios(){
         listaArchivos.forEach((n) -> System.out.println("Nombre viejo: " + n.getNombreViejo() + " Nombre nuevo: " + n.getNombreNuevo()));
         for(int a = 0; a < listaArchivos.size(); a++){
+            ContadorRenombre++;
             File file = new File(selectedDirectory.getAbsolutePath() + "\\" + listaArchivos.elementAt(a).getNombreViejo());
             File file2 = new File(selectedDirectory.getAbsolutePath() + "\\" + listaArchivos.elementAt(a).getNombreNuevo());
             try{
@@ -267,6 +279,20 @@ public class Renombrador extends Application {
                 System.err.println(e.getMessage());
             }
         }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Exito");
+        alert.setHeaderText(null);
+        alert.setContentText("Se han renombrado " + ContadorRenombre + " archivos");
+
+        alert.showAndWait();
+        TablaArchivos.getItems().clear();
+        Formato.setDisable(true);
+        Previsualizacion.setDisable(true);
+        Renombrar.setDisable(true);
+        Extension.setDisable(true);
+        Formato.setText("");
+        ContadorArchivos.setText("" + TablaArchivos.getItems().size());
     }
 
     public static void main(String[] args) {
