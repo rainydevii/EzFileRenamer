@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.Pane?>
 
 
-<Pane fx:id="Principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="413.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Rainydev.Renombrador.Renombrador">
+<?import javafx.scene.control.CheckBox?>
+<Pane fx:id="Principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Rainydev.Renombrador.Renombrador">
     <children>
         <Label layoutX="14.0" layoutY="14.0" prefHeight="23.0" prefWidth="70.0" text="Locacion" />
         <TextField disable="true" editable="false" fx:id="Locacion" layoutX="84.0" layoutY="13.0" prefHeight="25.0" prefWidth="415.0" />
@@ -24,9 +25,10 @@
             </columns>
         </TableView>
         <Label layoutX="14.0" layoutY="253.0" prefHeight="23.0" prefWidth="70.0" text="Formato" />
-        <TextArea disable="true" editable="false" layoutX="25.0" layoutY="347.0" prefHeight="132.0" prefWidth="550.0" text="Ingresa en el campo de texto de arriba el formato usando los numeros segun el formato deseado: &#10;*1* - Nombre Original&#10;*2* - Contador desde 0&#10;*3* - Contador desde 1&#10;&quot;texto&quot; - Texto Hardcoded&#10;Ejemplo: &quot;Vacaciones &quot;*3*&#10;Resultado: Vacaciones 1.jpg, Vacaciones 2.jpg...etc" />
+        <TextArea style="-fx-opacity: 1;" disable="true" layoutX="25.0" layoutY="347.0" prefHeight="162.0" prefWidth="550.0" text="Ingresa en el campo de texto de arriba el formato usando los numeros segun el formato deseado: &#10;*1* - Nombre Original&#10;*2* - Contador desde 0&#10;*3* - Contador desde 1&#10;{texto} - Texto Hardcoded&#10;La extension se agrega automaticamente si esta activada la opcion, en caso contrario escriba la&#10;extension al final del nombre usando la etiqueta de texto,&#10;Ejemplo: {Vacaciones }*3*&#10;Resultado: Vacaciones 1.jpg, Vacaciones 2.jpg...etc" />
         <TextField fx:id="Formato" disable="true" layoutX="84.0" layoutY="252.0" prefHeight="25.0" prefWidth="490.0" />
         <Button onAction="#Separador" disable="true" fx:id="Previsualizacion" layoutX="158.0" layoutY="293.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="117.0" text="Previsualizacion" />
         <Button onAction="#GuardarCambios"  fx:id="Renombrar"  disable="true" layoutX="325.0" layoutY="294.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="117.0" text="Renombrar" />
+        <CheckBox fx:id="Extension" disable="true" layoutX="25.0" layoutY="305.0" mnemonicParsing="false" selected="true" text="Incluir extension" />
     </children>
 </Pane>

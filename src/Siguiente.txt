@@ -1,0 +1,3 @@
+1- pop up contador de cambios
+2- checkbox de insertar extension
+3- contador de datos en tabla

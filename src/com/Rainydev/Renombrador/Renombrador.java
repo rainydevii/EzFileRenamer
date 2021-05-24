@@ -23,7 +23,7 @@ public class Renombrador extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("Renombrador.fxml"));
         primaryStage.setTitle("Ez File Renamer");
-        primaryStage.setScene(new Scene(root, 600, 494));
+        primaryStage.setScene(new Scene(root, 600, 521));
         primaryStage.show();
 
     }
@@ -54,6 +54,9 @@ public class Renombrador extends Application {
 
     @FXML
     private TextField Formato;
+
+    @FXML
+    private CheckBox Extension;
 
     public File selectedDirectory;
 
@@ -89,10 +92,12 @@ public class Renombrador extends Application {
         if(TablaArchivos.getItems().size() != 0){
             Formato.setDisable(false);
             Previsualizacion.setDisable(false);
+            Extension.setDisable(false);
         }else{
             Formato.setDisable(true);
             Previsualizacion.setDisable(true);
             Renombrar.setDisable(true);
+            Extension.setDisable(true);
         }
 
     }
@@ -103,7 +108,7 @@ public class Renombrador extends Application {
 
             FilenameFilter filter = new FilenameFilter() {
 
-                private String[] exts = {".txt", ".doc", ".pdf", ".exe", ".png", ".jpg", ".gif"};
+                private String[] exts = {".txt", ".doc", ".pdf", ".exe", ".png", ".jpg", ".gif", ".mp4", ".mkv", ".mov", ".ogg", ".mp3"};
 
                 @Override
                 public boolean accept(File f, String name) {
@@ -236,8 +241,14 @@ public class Renombrador extends Application {
         }
 
         System.out.println("El nombre nuevo es: " + nombreNuevo);
+        System.out.println("Nombre original: " + nombreOriginal);
+        String[] arregloExtension = nombreOriginal.split("\\.");
 
-        return nombreNuevo + nombreOriginal.substring(nombreOriginal.length() - 4);
+        if(Extension.isSelected()){
+            return nombreNuevo + "." + arregloExtension[arregloExtension.length - 1];
+        }else{
+            return nombreNuevo;
+        }
     }
 
     @FXML
